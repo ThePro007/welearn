@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% block title %} Bienvenida {% endblock %} {% load staticfiles %} {% load static %} {% block body %}
+
+
+{% if isTeacher %}
+{% for i in maestro%}
+<div align="center" style="padding:20px;">
+  <div style="padding: 30px; width:900px;"  class="card border-dark " align="left">
+    <h2>Tu puedes.</h2>
+    <h4>No esperes mas,publica tu primer curso.</h4>
+
+    <a href="/bienvenida_tutor" class="btn btn-primary btn-sm">Empezar de nuevo</a>
+    <br />
+    <a href="/crea_curso" class="btn btn-primary btn-sm">Crear curso</a>
+    <br />
+    <div style="display:inline-block; width:30%; background-color:lightgray; padding:20px;">
+      <img src="{% static 'images/header.jpg' %}" alt="WeLearnImg" width="100%">
+    </div>
+
+  </div>
+</div>
+{% endfor%}
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %} Crea Cuestionario {% endblock %}
+{% block body %}
+
+<div align="center" style="padding:20px;">
+  <div style="padding: 30px; width:900px;"  class="card border-dark " align="left">
+    <h2>Agrega Cuestionario</h2>
+    <form method="post">
+      {% csrf_token %} {{form.as_p}}
+      <input type="submit" name="cmdGuardar" value="Crear"> </input>
+    </form>
+    <a href="/crea_pregunta">Agrega Pregunta</a>
+  </div>
+</div>
+
+{% endblock %}

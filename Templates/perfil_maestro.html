@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{%load staticfiles%}
+{% block title %} Perfil{% endblock %}
+
+{% block style%}
+    <link rel="stylesheet" href="{% static 'css/perfil_alumno_maestro.css' %}">
+{%endblock%}
+
+{% block body %}
+
+  <article class="contenido">
+    <section class="contenido_alumno">
+      {%for i in maestro%}
+        <img class="imagen_perfil" src="{{i.foto.url}}" alt="no image">
+        <p class="nombre_usuario">{{i.name}}</p>
+
+
+        <div class="informacion_personal">
+          <p class="informacion_personal_titulo">Informacion personal</p>
+          <p>Nombre: {{i.nombre}}</p>
+          <p>Apellido: {{i.apellido}}</p>
+          <p>Titulo: {{i.titulo}}</p>
+          <p>Correo: {{i.correo}}</p>
+          <p>Acerca de mi: {{i.descripcion}}</p>
+          <p>Cursos creados: {{cantidad_cursos}}</p>
+        </div>
+
+      {%endfor%}
+
+    </section>
+
+    <section class="contenido_cursos">
+      <h2 class="mis_cursos_titulo">Mis cursos</h2>
+      {%for i in cursos%}
+        <a href="/detail_curso/{{i.id}}">
+          <div class="curso_contenedor">
+            <img src="{{i.foto.url}}" alt="no image">
+            <div class="curso_informacion">
+              <p class="curso_nombre">{{i.nombre}}</p>
+              <p>{{i.maestro}}</p>
+              <p>Lv: {{i.dificultad}}</p>
+            </div>
+          </div>
+        </a>
+      {%endfor%}
+
+      <div class="opcion_agregar_curso">
+        <a href="/crea_curso">Agregar curso</a>
+      </div>
+
+    </section>
+
+  </article>
+{% endblock %}

@@ -1,0 +1,207 @@
+.contenedor{
+  box-shadow: 0 1px 10px 0 rgba(101, 101, 101, 0.11), 0 1px 10px 0 rgba(111, 111, 111, 0.13);
+  width: 90%;
+  border: solid 1px rgb(199, 199, 199);
+  margin: 20px auto;
+  border-radius: 5px;
+  padding: 20px 80px;
+  background-color: white; 
+}
+
+#img_curso{
+  border-style: solid;
+  border-width: 5px;
+  border-color: #41ad00;
+  border-radius: 5px;
+}
+
+.contenido_curso{
+  display: flex;
+  justify-content: space-between;
+}
+
+.curso_imagen{
+  width: auto;
+  display: inline-block;
+  height: 300px;
+  width: 30%;
+}
+
+.curso_imagen img{
+  width: 100%;
+  height: 205;
+  max-height: 250px;
+  object-fit: cover;
+}
+
+.curso_info_principal{
+  width: 55%;
+  display: inline-block;
+  height: 300px;
+  text-align: left;
+  padding-top: 20px;
+  padding-left:15px;
+}
+
+.curso_info_principal p{
+    margin-top: -8px;
+    margin-bottom: 10px;
+}
+
+.descripcion{
+  margin-top: 20px;
+  text-align: left;
+}
+
+.boton_inscribirse{
+  width: 100%;
+  text-align: right;
+  margin-top: 50px;
+}
+
+.boton_inscribirse a{
+  background-color: rgb(226, 78, 245);
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: rgb(238, 238, 237);
+  font-size: 20px;
+}
+
+.boton_inscribirse a:hover{
+  text-decoration: none;
+  background-color: rgb(148, 88, 201);
+}
+
+.temas{
+  text-align: left;
+  margin-top: 50px;
+}
+
+#lista_temas{
+  margin-bottom: 30px;
+}
+
+.btn_inscribir_desuscribir{
+  border: 0;
+  background-color: rgb(22, 175, 51);
+  color: rgb(231, 231, 235);
+  padding: 10px 0;
+  width: 200px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.btn_inscribir_desuscribir:hover{
+  background-color: rgb(60, 204, 37);
+}
+
+.fieldWrapper{
+
+
+}
+textarea{
+  width:80%;
+  height:100px;
+  border-radius: 5px;
+  padding:10px;
+  margin-left:10%;
+}
+#id_descripcion{
+  width:80%;
+  height:200px;
+  border-radius: 5px;
+  padding:10px;
+  margin-left:10%;
+}
+label{
+  font-size:20px;
+  color:rgba(34,34,34,0.8);
+}
+input{
+  border-radius: 5px;
+  padding-left:5px;
+  padding-right:5px;
+}
+#btn_Crear{
+  width:30%;
+  float:right;
+  margin-right:10%;
+}
+.contenedor2{
+  box-shadow: 0 1px 10px 0 rgba(101, 101, 101, 0.11), 0 1px 10px 0 rgba(111, 111, 111, 0.13);
+  width: 90%;
+  border: solid 1px rgb(199, 199, 199);
+  margin: 20px auto;
+  border-radius: 5px;
+  padding: 40px;
+  padding-bottom: 80px;
+  background-color: white;
+}
+h2{
+  padding-bottom: 10px;
+  color:rgba(34,34,34,0.8);
+}
+hr{
+  display: block;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: solid;
+  border-width: 5px;
+  border-color: rgb(56, 168, 48);
+}
+
+#btn_editar{
+  margin-right:20px;
+  margin: 0px 15px 0px 0px ;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+#id_teoria{
+  height:150px;
+}
+
+.fieldWrapper1{
+  background-color: #0f15d636;
+  padding:10px;
+  border-radius: 10px;
+}
+.fieldWrapper2{
+  background-color: #44a9003b;
+  padding:10px;
+  border-radius: 10px;
+}
+.fieldWrapper3{
+  background-color: #f108082e;
+  padding:10px;
+  border-radius: 10px;
+}
+
+.contenedor3{
+  box-shadow: 0 1px 10px 0 rgba(101, 101, 101, 0.11), 0 1px 10px 0 rgba(111, 111, 111, 0.13);
+  width: 60%;
+  border: solid 1px rgb(199, 199, 199);
+  margin: 10px auto;
+  border-radius: 5px;
+  padding:20px;
+  text-align: left;
+  display:inline-block;
+  background-color: white;
+
+}
+
+#agregar_tema{
+  color:gray;
+}
+
+#agregar_tema:hover{
+  color: rgb(32, 150, 34);
+  text-decoration: none;
+}
+
+.tema_title{
+  color:#0a62ef;
+  vertical-align:middle;
+}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{%load staticfiles%}
+{% block title %} Cursos {% endblock %}
+{% block style%}
+    <link rel="stylesheet" href="{% static 'css/lista_cursos.css' %}">
+{%endblock%}
+{% block body %}
+
+  <h2 class="mis_cursos_titulo">Catalogo de Cursos</h2>
+
+  
+  <section class="contenido_cursos">
+    {% for object in object_list %}
+    {% if object.status %}
+      <a href="/detail_curso/{{object.id}}">
+        <div class="curso_contenedor">
+          <img src="{{object.foto.url}}" alt="no image" >
+          <div class="curso_informacion">
+            <p class="curso_nombre">{{object.nombre}}</p>
+            <p>{{object.maestro}}</p>
+            <p>Lv: {{object.dificultad}}</p>
+          </div>
+        </div>
+      </a>
+    {% endif%}
+    {%endfor%}
+  </section>
+
+
+{% endblock %}

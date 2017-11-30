@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %} Publicar Curso {% endblock %}
+{% block body %}
+
+<div align="center" style="padding:20px;">
+  <div style="padding: 30px; width:900px;"  class="card border-dark " align="left">
+    <h2>Publicar Curso</h2>
+    <hr>
+    <h5>Crees que tu curso esta listo para publicarse? </h5>
+    <form method="post"  enctype="multipart/form-data">
+      {% csrf_token %}
+          <div class="fieldWrapper">
+            {{ form.terminado.errors }}
+            {{ form.terminado.label_tag }}
+              <select name="terminado" id="id_terminado" >
+                {%if cursoActual.terminado %}
+                  <option value="Si" selected>Si</option>
+                  <option value="">No</option>
+                {%else%}
+                  <option value="" selected>No</option>
+                  <option value="Si">Si</option>
+                {%endif%}
+              </select>
+            <!-- {{ form.status }} -->
+          </div>
+      <input type="submit" name="cmdGuardar" value="Guardar"> </input>
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

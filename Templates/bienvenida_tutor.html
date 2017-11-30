@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %} Bienvenida {% endblock %}
+{% load staticfiles %}
+{% load static %}
+{%block style%}
+<link rel="stylesheet" href="{% static 'css/detalle_curso.css' %}">
+<script type="text/javascript" src="{% static 'jquery-2.1.4.js'%}"></script>
+<style>
+  .info{
+    width: 80%;
+    margin-top: 20px;
+  }
+
+  .tiene_cuenta{
+    font-size: 30px;
+    margin: 0;
+  }
+
+  .iniciar_sesion{
+    color: rgb(40, 175, 42);
+    font-size: 30px;
+  }
+
+  .iniciar_sesion:hover{
+    color: rgb(2, 119, 4);
+    text-decoration: none;
+  }
+
+</style>
+{%endblock%}
+{% block body %}
+
+
+
+<div align="center" style="padding:20px;">
+
+  <div class="contenedor">
+    <img src="{% static 'images/header.jpg' %}" alt="WeLearnImg" width="200px" >
+    <div class="info">
+      <h1>GRACIAS POR REGISTRARTE</h1>
+      <h2>Te damos la bienvenida a WeLearn.</h2>
+      <br>
+      <h4>Ofrecemos cientos de cursos a muchos estudiantes gracias a personas dedicadas como tu.
+      Podras ensenar con tu propio estilo.</h4>
+      <br><br>
+      <p class="tiene_cuenta">Ya tienes cuenta, ahora solo inicia sesion</p>
+      <a href="/login" class="iniciar_sesion" >Iniciar sesion</a>
+    </div>
+  </div>
+
+</div>
+
+
+{% endblock %}

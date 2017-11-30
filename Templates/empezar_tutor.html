@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %} Index {% endblock %}
+{% load staticfiles %}
+  {% load static %}
+  {% block style%}
+      <link rel="stylesheet" href="{% static 'css/index.css' %}">
+      <style>
+        .ser_tutor2{
+          font-size: 35px;
+        }
+
+        img{
+          object-fit: cover;
+        }
+      </style>
+  {%endblock%}
+{% block body %}
+
+  <div align="center">
+    <div>
+      <img src="{% static 'images/header.jpg' %}" alt="WeLearnImg" width="100%" height="400px;" >
+    </div>
+
+    <article class="contenedor_cursos">
+      <div class="maestros_mensajes">
+        <h2 class="unete">¿Quieres ser maestro?</h2>
+        <p class="ser_tutor">Crea cursos, temas y cuestionarios para los demas puedan aprender.</p>
+        <a href="/signup1" class="ser_tutor2">Registrate como maestro</a>
+      </div>
+    </article>
+
+    <div>
+      <img src="{% static 'images/header.jpg' %}" alt="WeLearnImg" width="100%" >
+    </div>
+  </div>
+
+{% endblock %}

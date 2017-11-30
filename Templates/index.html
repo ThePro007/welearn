@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title %} Index {% endblock %}
+{% load staticfiles %}
+{% load static %}
+{% block style%}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{%endblock%}
+
+{% block body %}
+
+  <article class="bienvenida">
+    <div class="contenedor_mensaje">
+      <p class="mensaje_titulo">We learn</p>
+      <p class="mensaje_eslogan">The best Way</p>
+      <p class="mensaje_eslogan">to Learn English</p>
+    </div>
+
+    <div class="contenedor_imagen">
+      <img src="{% static 'images/logoWeLearn.png' %}" alt="no image">
+    </div>
+  </article>
+
+
+  <article class="contenedor_cursos">
+    <div class="maestros_mensaje">
+      <h2 class="unete">Unete y empieza a aprender</h2>
+      {% if not user.is_authenticated %}
+        <a class="ser_tutor" href="/signup2">Comienza</a>
+      {%endif%}
+    </div>
+
+    <div class="cursos_titulo_link">
+      <h2>Cursos</h2>
+      <a href="/listar_curso/">Ver mas</a>
+    </div>
+
+    {%for curso in ultCur%}
+      <a href="/detail_curso/{{curso.id}}">
+        <div class="curso_contenedor">
+          <img src="{{curso.foto.url}}" alt="no image" >
+          <div class="curso_informacion">
+            <p class="curso_nombre">{{curso.nombre}}</p>
+            <p>{{curso.maestro}}</p>
+            <p>Lv: {{curso.dificultad}}</p>
+          </div>
+        </div>
+      </a>
+    {%endfor%}
+  </article>
+
+  <article class="contenedor_maestros">
+
+    {% if user.is_authenticated and isTeacher %}
+      <div class="maestros_mensaje">
+        <h2 class="unete">Gracias por pertenecer a nuestro equipo de trabajo</h2>
+      </div>
+    {%endif%}
+    {% if not user.is_authenticated  %}
+      <div class="maestros_mensaje">
+        <h2 class="unete">Unete a nuestro equipo de trabajo</h2>
+        <a class="ser_tutor" href="/empezar_tutor">Ser tutor</a>
+      </div>
+    {%endif%}
+
+    <div class="cursos_titulo_link">
+      <h2>Maestros</h2>
+      <a href="/listar_maestro/">Ver mas</a>
+    </div>
+
+    {%for maestro in ultMaes%}
+      <a href="/detail_tutor/{{maestro.id}}">
+        <div class="curso_contenedor_mae">
+          <!-- <img src="{{maestro.foto.url}}" alt="no image" width="100 px"> -->
+          <div class="curso_informacion_mae">
+            <p class="maestro_nombre">{{maestro.nombre}}</p>
+            <p class="maestro_nombre">{{maestro.apellido}}</p>
+            <p>Correo: {{maestro.correo}}</p>
+          </div>
+        </div>
+      </a>
+    {%endfor%}
+
+
+  </article>
+
+{% endblock %}

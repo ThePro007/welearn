@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block title %} Panel Instructor {% endblock %} {% load staticfiles %} {% load static %} {% block body %}
+
+<div align="center" style="padding:20px;">
+  <div style="padding: 30px; width:900px;" class="card border-dark " align="left">
+    <h2>Panel del Instructor.</h2>
+    <h4>Comienza la creacion de un curso.</h4>
+
+    <a href="/crea_curso" class="btn btn-primary btn-sm">Crea Curso</a>
+    <br />
+    <div style="display:inline-block; width:30%; background-color:lightgray; padding:20px;">
+      <img src="{% static 'images/header.jpg' %}" alt="WeLearnImg" width="100%">
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

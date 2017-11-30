@@ -1,0 +1,8 @@
+#img_profile{
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+body{
+  background-color: #EEE; 
+}

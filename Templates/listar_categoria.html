@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <title>Lista Categorias</title>
+<style media="screen">
+
+</style>
+ </head>
+ <body>
+<div class="lista">
+  {% for object in object_list%}
+  {% if object.status%}
+  <br>
+  <td>Categoria: {{object.categoria}}</td>
+  <br>
+  <br>
+  {%endif%}
+  {%endfor%}
+  <h5>Crees que falta alguna?.<a href="/crear_categoria"> Dinos cual?</a></h5>
+</div>
+
+ </body>
+</html>

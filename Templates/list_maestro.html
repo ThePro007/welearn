@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{%load staticfiles%}
+{% block title %} Maestros {% endblock %}
+{% block style%}
+    <link rel="stylesheet" href="{% static 'css/lista_maestros.css' %}">
+{%endblock%}
+{% block body %}
+
+  <div align="center">
+
+    <section class="contenedor_maestros">
+      <h2 class="lista_maestros_titulo">Maestros</h2>
+
+      {% for object in object_list %}
+        <a href="/detail_tutor/{{object.id}}">
+          <div class="maestro_contenedor">
+
+              <img src="{{object.foto.url}}" alt="no image">
+              <div class="maestro_informacion">
+                <p class="maestro_nombre">{{object.name}}</p>
+                <p>{{object.correo}}</p>
+                <p>{{object.nombre}}</p>
+              </div>
+
+          </div>
+        </a>
+      {%endfor%}
+
+    </section>
+
+  </div>
+{% endblock %}

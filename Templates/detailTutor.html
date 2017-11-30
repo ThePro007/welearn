@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{%load staticfiles%}
+{% block title %}Tutor{% endblock %}
+
+{% block style%}
+
+    <link rel="stylesheet" href="{% static 'css/detalle_tutor.css' %}">
+    <link rel="stylesheet" href="{% static 'css/form_test_tema.css' %}">
+    <script type="text/javascript" src="{% static 'jquery-2.1.4.js'%}">
+
+    </script>
+
+
+{%endblock%}
+
+{%block body%}
+  {% for object in maestros %}
+    {% if object.id == objectId %}
+
+    <article class="contenedor">
+      <img  class="img_user" src="{{object.foto.url}}" alt="no image">
+      <h3 class="nombre_user">{{ object.nombre }} {{object.apellido}}</h3>
+      <h3>{{ object.correo }}</h3>
+
+      <section class="contenido_curso">
+        <div class="curso_info_principal">
+
+          <h1 class="acerca_demi">Mas acerca de mi</h1>
+          <p class="titulo">{{object.titulo}}<p>
+          <p class="descripcion">Descripcion: {{object.descripcion}}</p>
+        </div>
+       </section>
+
+
+
+    </article>
+
+    <article class="">
+      <h2 class="mis_cursos_titulo">Mis cursos</h2>
+      <p class="cursos_creados">Cursos creados: {{cantidad_cursos}}</p>
+      {%for i in cursos%}
+      <article class="contenedor">
+        <a class="cursoTutor" href="/detail_curso/{{i.id}}">
+          <div class="curso_contenedor">
+            <img class="imgCurso" src="{{i.foto.url}}" alt="no image" width="200px">
+            <div class="curso_informacion">
+              <p class="curso_nombre">{{i.nombre}}</p>
+              <p>Categoria: {{i.categoria}}</p>
+              <p>Lv: {{i.dificultad}}</p>
+            </div>
+
+          </div>
+        </a>
+      </article>
+
+      {%endfor%}
+
+    </article>
+    {% endif %}
+  {% endfor %}
+
+  {%endblock%}

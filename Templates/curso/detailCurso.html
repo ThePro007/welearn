@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{%load staticfiles%}
+{% block title %}Curso{% endblock %}
+
+{% block style%}
+    <link rel="stylesheet" href="{% static 'css/detalle_curso.css' %}">
+    <script type="text/javascript" src="{% static 'jquery-2.1.4.js'%}"></script>
+{%endblock%}
+
+{%block body%}
+  {% for object in cursos %}
+    {% if object.id == objectId %}
+      <article class="contenedor">
+        <section class="contenido_curso">
+          <div class="curso_imagen">
+            <img src="{{object.foto.url}}" alt="no image" width="200 px" id="img_curso">
+          </div>
+          <div class="curso_info_principal">
+             <h4>Nombre de Curso</h4>
+             <p>{{object.nombre}}</p>
+             <h4>Maestro de Curso</h4>
+             <p>{{object.maestro}}</p>
+             <h4>Dificultad de Curso</h4>
+             <p>Lv: {{object.dificultad}}</p>
+         </div>
+            {%if isTeacher and esPropietario %}
+            <div>
+                <a class="btn btn-success" id="btn_editar" href="/editar_curso/{{object.id}}">Editar</a>
+            </div>
+            {% if not object.status %}
+            <div>
+                <a  class="btn btn-primary" href="/publicar_curso/{{object.id}}">Publicar</a>
+            </div>
+            {% endif %}
+           {% endif %}
+         </section>
+
+         <section class="descripcion">
+           <h4>Descripcion de Curso:</h5>
+           <p>{{object.descripcion}}</p>
+           <h4>Requisitos previos:</h5>
+           <p>{{object.requisitos}}</p>
+           <h4>Objetivos:</h5>
+           <p>{{object.objetivos}}</p>
+           <h4>Status:</h5>
+           <a>{{object.status}}</a>
+         </section>
+
+         {%if not isTeacher and user.is_authenticated%}
+           {% if isSubscribed %}
+             <form method="post">
+               {% csrf_token %}
+               <input class="btn_inscribir_desuscribir" type="submit" name="cmdGuardar" value="Desuscribirse"> </input>
+             </form>
+           {% else %}
+             <form method="post">
+               {% csrf_token %}
+               <input class="btn_inscribir_desuscribir" type="submit" name="cmdGuardar" value="Inscribirse"> </input>
+             </form>
+           {% endif %}
+         {%endif%}
+
+         <br/>
+
+        </br/>
+      </article>
+      <h2 style="padding-left:300px;" align="left">Temas</h2>
+
+      <div align="center">
+      {% for tema in temas %}
+
+
+      <article class="contenedor3">
+        <div style="width:100%; heigth:100%; display:inline-block;" align="center">
+          <h3 style=" vertical-align:middle;"><a class="btn btn-primary" style="width:80%; heigth:100%; font-size:40px;" href="/detail_tema/{{ tema.id }}">{{ tema.nombre }}</a></h3>
+        </div><br />
+        <div style="width:100%; display:inline-block; height:100px; scroll:auto; word-wrap: break-word; overflow:hidden;" align="center">
+          <h4 class="tema_title">Descripcion</h4>
+          <p>
+            {{ tema.teoria }}
+          </p>
+        </div>
+      </article>
+
+      {% endfor %}
+
+      {%if isTeacher%}
+      <article class="contenedor3" style="text-align: center;" align="center">
+        <div class="agregar_tema" style="text-align: center;" align="center">
+
+        </div>
+        <!-- <h3><a href="/crea_tema/{{ objectId }} ">+ Agregar tema</a></h3> -->
+      </article>
+      {%endif%}
+      </div>
+
+      <!-- El siguiente input se utiliza para almacenar el id del curso y recuperarlo en el script-->
+      <input type="hidden" id="idCurso" value="{{ objectId }}">
+      <input type="hidden" id="userLog" value="{{ user.username }}">
+      <input type="hidden" id="duenoCurso" value="{{ object.maestro }}">
+    {% endif %}
+  {% endfor %}
+
+
+  <script type="text/javascript">
+  $(function(){
+    var userLogeado =  document.getElementById("userLog").value;
+    var duenoDeCurso =  document.getElementById("duenoCurso").value;
+    var idCurso =  document.getElementById("idCurso").value;
+
+     if(userLogeado == duenoDeCurso){
+       $('.agregar_tema').append("<h3><a id=\"agregar_tema\" href=\"\/crea_tema\/"+idCurso+"\" >"+"+ Agregar tema"+ '</a><h3>');
+    }
+  });
+  </script>
+
+
+{%endblock%}

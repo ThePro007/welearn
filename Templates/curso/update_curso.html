@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{%load staticfiles%}
+{% block title %} Editar Curso {% endblock %}
+{%block style%}
+<link rel="stylesheet" href="{% static 'css/detalle_curso.css' %}">
+<script type="text/javascript" src="{% static 'jquery-2.1.4.js'%}"></script>
+{%endblock%}
+{% block body %}
+
+<div align="center" style="padding:20px;">
+  <div style="width:900px;" class="contenedor2" align="left">
+    <h2>Editar Curso</h2>
+    <hr />
+    <form method="post"  enctype="multipart/form-data">
+      {% csrf_token %}
+      <!-- {{form.as_p}} -->
+      {{ form.non_field_errors }}
+          <div class="fieldWrapper">
+            {{ form.nombre.errors }}
+            {{ form.nombre.label_tag }}
+            <input type="text" name="nombre" required="" id="id_nombre" maxlength="50" value="{{cursoActual.nombre}}">
+          </div>
+          <!-- <div class="fieldWrapper">
+            {{ form.dificultad.errors }}
+            {{ form.dificultad.label_tag }}
+            {{ form.dificultad }}
+          </div> -->
+          <!-- <div class="fieldWrapper">
+            {{ form.foto.errors }}
+            {{ form.foto.label_tag }}
+            {{ form.foto }}
+          </div> -->
+          <div class="fieldWrapper">
+            {{ form.descripcion.errors }}
+            {{ form.descripcion.label_tag }}
+            <textarea type="text" name="descripcion" id="id_descripcion" maxlength="5000">{{cursoActual.descripcion}}</textarea>
+            <!-- {{ form.descripcion }} -->
+          </div>
+          <!-- <div class="fieldWrapper">
+            {{ form.categoria.errors }}
+            {{ form.categoria.label_tag }}
+            {{ form.categoria }}
+          </div> -->
+          <div class="fieldWrapper">
+            {{ form.objetivos.errors }}
+            {{ form.objetivos.label_tag }}
+            <textarea type="text" name="objetivos" id="id_objetivos" maxlength="5000" value="">{{cursoActual.objetivos}}</textarea>
+            <!-- {{ form.objetivos }} -->
+          </div>
+          <div class="fieldWrapper">
+            {{ form.requisitos.errors }}
+            {{ form.requisitos.label_tag }}
+            <textarea type="text" name="requisitos" id="id_requisitos" maxlength="5000" value="">{{cursoActual.requisitos}}</textarea>
+            <!-- {{ form.requisitos }} -->
+          </div>
+      <input class="btn btn-success" id="btn_Crear"  type="submit" name="cmdGuardar" value="Guardar"> </input>
+    </form>
+
+  </div>
+</div>
+
+
+
+<!--
+
+nombre = models.CharField(max_length=50)
+  dificultad = models.CharField(max_length=30,choices=dificultad_curso)
+  foto=models.ImageField(upload_to="images")
+  descripcion = models.TextField(max_length=5000)
+  maestro = models.ForeignKey(Maestro,on_delete = models.CASCADE)
+  categoria = models.ForeignKey(Categoria,on_delete=models.CASCADE,null=True,blank=True)
+  objetivos = models.TextField(max_length=5000,null=True,blank=True)
+  requisitos = models.TextField(max_length=5000,null=True,blank=True)
+  status
+
+
+ -->
+
+{% endblock %}

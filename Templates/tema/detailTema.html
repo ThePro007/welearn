@@ -1,0 +1,406 @@
+{% extends 'base.html' %}
+{%load staticfiles%}
+{% block title %}Tema{% endblock %}
+
+{% block style%}
+    <link rel="stylesheet" href="{% static 'css/detalle_tema.css' %}">
+    <link rel="stylesheet" href="{% static 'css/form_test_tema.css' %}">
+    <script type="text/javascript" src="{% static 'jquery-2.1.4.js'%}">
+
+    </script>
+{%endblock%}
+
+{%block body%}
+  {% for object in temas %}
+    {% if object.id == objectId %}
+
+
+    <article class="contenedor">
+      <img src="{{object.curso.foto.url}}" alt="no image" width="50 px">
+      <h3>  <a href="/detail_curso/{{object.curso.id}}">{{ object.curso}}</a></h3>
+      {{ tema.teoria }}
+    </article>
+
+    <div align="center">
+      <article class="contenedor contenedorResultados">
+        <section class="contenido_curso">
+          <!-- <div class="curso_imagen">
+            <img src="{{object.foto.url}}" alt="no image" width="200 px">
+
+          </div> -->
+          <div class="curso_info_principal">
+           <h2>{{object.nombre}}</h2>
+           <!-- <h4>Curso</h4>
+           <p>{{object.curso}}</p> -->
+          </div>
+          {%if isTeacher and esPropietario %}
+           <div>
+               <a class="btn btn-success" id="btn_editar" href="/editar_tema/{{object.id}}">Editar</a>
+           </div>
+          {% endif %}
+         </section>
+         <hr id="hr_main"/>
+         <script>
+           var suscrito = false;
+           var isTeacher = "{{isTeacher}}"
+           var esPropietario = "{{esPropietario}}"
+         </script>
+
+         {%if not iTeacher%}
+           {%for curso in cursosSuscritos%}
+            {%if curso.id == object.curso.id%}
+              <script>
+                suscrito = true;
+                tieneCalificacion = false;
+              </script>
+            {%endif%}
+           {%endfor%}
+         {%endif%}
+
+         <section class="descripcion">
+           <h4>Informacion:</h5>
+           <p>{{object.teoria}}</p>
+         </section>
+
+         {% if object.video.url != none%}
+         <h2 id="videoTitulo">Video</h2>
+           <video src="{{object.video.url}}" poster="" controls>
+
+           </video>
+         {%endif%}
+
+         {%if not isTeacher%}
+          <p class="boton_inscribirse" id="btnTomarTest"><a class="elemento_a" href="#">Realizar Test</a></p>
+          <p class="calificacionText"></p>
+            {%for calificacionTema in calificacionesTema%}
+              {%if calificacionTema.alumno == current%}
+                {%if calificacionTema.tema == object.nombre%}
+                  <script>
+                    var tieneCalificacion = true;
+                    var calificacionDelTema = "{{calificacionTema.calificacion}}"
+                  </script>
+                {%endif%}
+              {%endif%}
+            {%endfor%}
+
+            <script>
+              if(!tieneCalificacion){
+                $('.calificacionText').append('<p class="ultimaCalificacion">No tienes ninguna calificacion</p>');
+              }
+              else if(suscrito) {
+                $('.calificacionText').append('<p class="ultimaCalificacion">Ultima calificacion: ' + calificacionDelTema+"</p>");
+              }
+            </script>
+
+         {%endif%}
+
+        <div class="seccion_comentario">
+           <h2 class="comentarios_titulo">Comentarios</h2>
+           <div class="contenedor_comentarios">
+             {%for comentario in comentariosTema%}
+               {%if comentario.tema == object%}
+               <div class="comentario_contenedor">
+                 <p class="comentario">{{comentario.alumno}}: {{comentario.contenido}}</p>
+               </div>
+               {%endif%}
+             {%endfor%}
+           </div>
+
+           <form class="form_comentario" method="post">
+             {% csrf_token %}
+             {{ form2.data.errors }}
+             <textarea name="contenido" rows="2" maxlength="500" required="" id="id_textarea"></textarea>
+             <div>
+                <input id="bt_submit_comentario" type="submit" name="btnSubmit" value="Comentar">
+             </div>
+             <input type="number" name="tema" required="" id="id_tema" value="{{object.id}}"  style="visibility: hidden;">
+             <input type="number" name="alumno" required=""  id="id_alumno" value="{{current.id}}"  style="visibility: hidden;">
+
+           </form>
+         </div>
+
+        <!-- <div >
+           {% for pregunta in preguntas %}
+            {% if pregunta.tema.id == objectId %}
+
+                <script type="text/javascript">
+                longitud ++;
+
+                  var preguntaObject = {
+                  pregunta:"{{pregunta.pregunta}}",
+                  respuesta:"{{pregunta.resCorrecta}}",
+                  respuestaIncorrecta1: "{{pregunta.resIncorrecta1}}",
+                  respuestaIncorrecta2: "{{pregunta.resIncorrecta2}}",
+                  respuestaIncorrecta3: "{{pregunta.resIncorrecta3}}"
+                  };
+                  array.push(preguntaObject);
+                </script>
+            {% endif %}
+           {% endfor %}
+         </div> -->
+
+         <script type="text/javascript">
+           var array = [];//Se crea un arreglo donde se guardaran las preguntas y respuestas
+           var longitud = 0;
+           var idCurso = "{{object.curso.id}}"//Obtener id de curso
+         </script>
+
+
+
+         <form id="testTema" >
+           <label id="pregunta"></label>
+           <input type="radio" name="respuesta" value="correcta" id="correcta">
+           <label id="labelCorrecta" for="correcta"></label>
+           <br>
+           <input type="radio" name="respuesta" value="incorrecta1" id="incorrecta1">
+          <label id="labelInc1" for="incorrecta1"></label>
+          <br>
+           <input type="radio" name="respuesta" value="incorrecta2" id="incorrecta2">
+           <label id="labelInc2" for="incorrecta2"></label>
+           <br>
+           <input type="radio" name="respuesta" value="incorrecta3" id="incorrecta3">
+           <label id="labelInc3" for="incorrecta3"></label>
+           <br>
+           <div class="btSiguiente_contenedor">
+             <button id="btSiguiente" type="button" name="button">Siguiente  ></button>
+           </div>
+         </form>
+
+         <form method="POST" id="formCalificacion">
+           {% csrf_token %}
+           {{ form.data.errors }}
+           <input type="number" name="alumno" required=""  id="id_alumno" value="{{current.id}}"  style="visibility: hidden;">
+           <input type="number" name="calificacion" required="" step="any" id="id_calificacion" value=""  style="visibility: hidden;">
+           <input type="text" name="tema" required="" id="id_tema" value="{{object.nombre}}"  style="visibility: hidden;">
+           <!-- <button type="submit" name="btnform">Comentar</button> -->
+         </form>
+      </article>
+    </div>
+
+
+
+      {%if isTeacher%}
+        <h2 id="h2_cuestionario">Preguntas</h2>
+
+
+          <div id="lista_temas">
+              {% if hayPreguntas %}
+                <div class="contenedor">
+               {% for pregunta in preguntas %}
+
+                    <div id="div_pregunta">
+                      <p style="display:inline-block;">{{pregunta.pregunta}}</p>
+                      {% if esPropietario %}
+                      <div style="display:inline-block;">
+                          <a class="btn btn-success" id="btn_pregunta" href="/editar_pregunta/{{pregunta.id}}">Editar Pregunta</a>
+                      </div>
+                      {% endif %}
+                    </div>
+                    <hr id="hr_pregunta"/>
+                    <div class="correcta"><p>{{pregunta.resCorrecta}}</p></div>
+                    <div class="incorrecta"><p>{{pregunta.resIncorrecta1}}</p></div>
+                    <div class="incorrecta"><p>{{pregunta.resIncorrecta2}}</p></div>
+                    <div class="incorrecta"><p>{{pregunta.resIncorrecta3}}</p></div>
+
+                {% endfor %}
+               </div>
+
+             {% endif %}
+        </div>
+      {%endif%}
+      {% for pregunta in preguntas %}
+       {% if pregunta.tema.id == objectId %}
+           <!-- Este script crea un objeto que almacena las preguntas y respuestas, por ultimo las agrega a un arreglo -->
+           <script type="text/javascript">
+           longitud ++;
+             //Se crea un objeto que almacena la pregunta y respuestas correcta
+             var preguntaObject = {
+             pregunta:"{{pregunta.pregunta}}",
+             respuesta:"{{pregunta.resCorrecta}}",
+             respuestaIncorrecta1: "{{pregunta.resIncorrecta1}}",
+             respuestaIncorrecta2: "{{pregunta.resIncorrecta2}}",
+             respuestaIncorrecta3: "{{pregunta.resIncorrecta3}}"
+             };
+             array.push(preguntaObject);//Se guarda el objeto en el arreglo
+           </script>
+       {% endif %}
+      {% endfor %}
+
+
+      <!-- El siguiente input se utiliza para almacenar el id del curso y recuperarlo en el script-->
+      <input type="hidden" id="userLog" value="{{ user.username }}">
+      <input type="hidden" id="duenoCurso" value="{{ object.curso.maestro }}">
+      <input type="hidden" id="objectId" value="{{ objectId }}">
+    {% endif %}
+  {% endfor %}
+
+  <script type="text/javascript">
+
+    //Creacion de variables globales
+    var contador = 0; //Para la cantidad de preguntas del tema
+    var contadorCorrectas = 0;//Respuestas correctas
+    var contadorIncorrectas = 0;//Respuestas incorrectas
+    var resultadoFinal = 0;
+
+    var pregunta = ''
+    var respuestaElegida = '';
+    var respuestaCorrecta = '';
+    var respuestaInc1 = '';
+    var respuestaInc2 = '';
+    var respuestaInc3 = '';
+
+    //----------------------FUNCION---------------------------
+    function generarPregunta(){
+      $('#correcta').attr('checked', false);
+      $('#incorrecta1').attr('checked', false);
+      $('#incorrecta2').attr('checked', false);
+      $('#incorrecta3').attr('checked', false);
+
+      var random1 = Math.floor(Math.random() * 4);//Numero random para la posicion de la respuesta correcta
+
+      //Almacenamiento de pregunta y respuestas en variables
+      pregunta = array[contador].pregunta;
+      respuestaCorrecta = array[contador].respuesta;
+      respuestaInc1 = array[contador].respuestaIncorrecta1;
+      respuestaInc2 = array[contador].respuestaIncorrecta2;
+      respuestaInc3 = array[contador].respuestaIncorrecta3;
+
+      //Label con id=pregunta se le asigna la pregunta como texto
+      $('#pregunta').text(pregunta);
+
+      //Dependiendo el valor de random se genera la respuesta correcta en distinta posicion
+      if(random1 == 0){
+        $('#labelCorrecta').text(respuestaCorrecta);
+        $('#labelInc1').text(respuestaInc1);
+        $('#labelInc2').text(respuestaInc2);
+        $('#labelInc3').text(respuestaInc3);
+      }
+      else if(random1 == 1){
+        $('#labelCorrecta').text(respuestaInc1);
+        $('#labelInc1').text(respuestaCorrecta);
+        $('#labelInc2').text(respuestaInc2);
+        $('#labelInc3').text(respuestaInc3);
+      }
+      else if(random1 == 2){
+        $('#labelCorrecta').text(respuestaInc2);
+        $('#labelInc1').text(respuestaInc1);
+        $('#labelInc2').text(respuestaCorrecta);
+        $('#labelInc3').text(respuestaInc3);
+      }
+      else if(random1 == 3){
+        $('#labelCorrecta').text(respuestaInc3);
+        $('#labelInc1').text(respuestaInc1);
+        $('#labelInc2').text(respuestaInc2);
+        $('#labelInc3').text(respuestaCorrecta);
+      }
+    }
+
+    //---------FUNCION--Cuando se presiona el boton para la siguiente pregunta-------------------------
+    function siguiente(){
+
+      var seleccionId = document.querySelector('input[name = "respuesta"]:checked').id;//Se optiene el id del radio checked
+      labels = document.getElementsByTagName('label');//Se obtiene un arreglo de todos los labels
+
+      for( var i = 0; i < labels.length; i++ ) {
+         if (labels[i].htmlFor == seleccionId){//Comprobar si el valor del atributo 'for' del label es igual al id del radio checked
+           respuestaElegida = labels[i].innerText;//Se obtiene el texto de ese label
+         }
+      }
+
+      //Comprobar si el texto del radio seleccionado es igual a la respuesta correcta
+      if(respuestaElegida == respuestaCorrecta)
+        contadorCorrectas++;//Aumenta en +1 las respuestas correctas
+      else
+        contadorIncorrectas++;//Aumenta en +1 las respuestas incorrectas
+
+      //Comprueba si ya se llego a la ultima pregunta
+      if(contador < longitud - 1)
+        contador++;//Se incrementa para pasar a la siguiente pregunta
+      else{
+        // alert('Has terminado el test\nRespuestas correctas: ' + contadorCorrectas +'\nRespuestas incorrectas: '+contadorIncorrectas);//Se avisa que se terminaron las preguntas
+        // contador = 0;//Se reinicia el contador
+        mostrarResultados();
+        return;
+      }
+      generarPregunta();//Se genera la pregunta
+    }
+
+    function mostrarResultados(){
+      resultadoFinal = (contadorCorrectas/longitud) * 100;
+      resultadoFinal = resultadoFinal.toFixed(2);
+      $('#testTema').remove();
+      var formResultados = $('<form id="testTema"></form>');
+      formResultados.append('<p id="pregunta">Resultados</p>');
+      formResultados.append('<p class="test_results">Correctas: '+contadorCorrectas+'</p>');
+      formResultados.append('<p class="test_results">Incorrectas: '+contadorIncorrectas+'</p>');
+      formResultados.append('<p class="test_results_final">Calificacion: '+resultadoFinal+'</p>');
+      formResultados.append('<div class="btSiguiente_contenedor"><input type="submit" class="btGuardarResultados" value="Guardar resultados y regresar"></div>');
+      $('.contenedorResultados').append(formResultados);
+      $('.btSiguiente_contenedor').on('click', guardarResultados);
+    }
+
+    function guardarResultados(){
+      document.getElementById('id_calificacion').value = resultadoFinal
+       $("#formCalificacion").submit();
+    }
+
+    //---------FUNCION--Cuando se presiona el boton tomar test-------------------------
+    function empezarQuiz(){
+
+      //Se comprueba si hay preguntas en el tema
+      if(longitud==0){//longitud almacena la cantidad de preguntas del tema
+        alert('Este tema no cuentra con un test para realizar');
+        return;
+      }
+
+      //Si hay preguntas, se muestra el formulario y se oculta el boton: 'tomar test'
+
+      $('.curso_info_principal').prepend('<h2 class="test_titulo">Test</h2>');
+      $('.descripcion').hide();
+      document.getElementById("testTema").style.visibility = "visible";
+      //document.getElementById("btnTomarTest").style.visibility = "hidden";
+      $('#btnTomarTest').remove();
+      $('video').remove();
+      $('.seccion_comentario').remove();
+      $('.calificacionText').hide();
+      $('.videoTitulo').hide();
+
+
+      generarPregunta();//Se comienza a generar la primera pregunta
+    }
+
+    $('#btSiguiente').on('click', siguiente);//Se agrega el evento click y su respectiva funcion
+    $('#btnTomarTest').on('click', empezarQuiz);//Se agrega el evento click y su respectiva funcion
+  </script>
+
+  <script>
+
+    $(function(){
+
+      var userLogeado =  document.getElementById("userLog").value;
+      var duenoDeCurso =  document.getElementById("duenoCurso").value;
+      var objectId = document.getElementById("objectId").value;
+
+      if(userLogeado == duenoDeCurso){
+         $('#lista_temas').append("<div class=\"contenedor contenedor_agregar\"><a href=\"\/crea_pregunta\/"+objectId+"\" >"+"+ Agregar pregunta"+ '</a></div>' + "<br>");
+      }
+
+      if(suscrito == false){
+        $('#btnTomarTest').hide();
+        $('#id_textarea').hide();
+        $('#bt_submit_comentario').hide();
+
+        if(!isTeacher){
+          $('.temas').append('Nota: Para tomar un test, debes estar inscrito al curso');
+          $('.temas').append('<br>');
+          $('.temas').append('<a href="/detail_curso/'+idCurso+'">Regresar al curso para inscribirme</a>');
+        }
+      }
+
+      document.getElementById("testTema").style.visibility = "hidden";  //Se oculta el formulario
+    });
+
+  </script>
+
+
+  {%endblock%}

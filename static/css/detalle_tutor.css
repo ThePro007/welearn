@@ -1,0 +1,245 @@
+.contenedor{
+  box-shadow: 0 1px 10px 0 rgba(101, 101, 101, 0.11), 0 1px 10px 0 rgba(111, 111, 111, 0.13);
+  width: 90%;
+  border: solid 1px rgb(199, 199, 199);
+  margin: 20px auto;
+  border-radius: 5px;
+  padding: 20px 80px;
+  background-color: white;
+}
+
+.img_user{
+    height: 100px;
+    width: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.nombre_user{
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.acerca_demi{
+    color:rgba(34,34,34,0.8);
+    margin: 20px 0;
+}
+ .titulo, .cursos_creados{
+   font-size: 25px;
+ }
+
+ .cursos_creados{
+   text-align: center;
+ }
+
+ .descripcion{
+   font-size: 20px;
+   width: 80%;
+ }
+
+ .mis_cursos_titulo{
+   text-align: center;
+   margin-top: 20px;
+   color:rgba(34,34,34,0.8);
+   font-size:  2.5rem;
+ }
+
+.cursoTutor{
+  margin-top: 50px;
+}
+
+.imgCurso{
+  margin-right: 100px;
+}
+
+.curso_nombre{
+  font-size: 40px;
+  font-weight: bold;
+}
+.contenido_curso{
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.curso_info_principal{
+  width: 100%;
+  display: inline-block;
+  padding-top: 20px;
+}
+
+.curso_info_principal h2{
+  text-align: left;
+  font-size: 80px;
+}
+
+
+.curso_info_principal p{
+    margin-top: -8px;
+    margin-bottom: 20px;
+}
+
+.nombreTema{
+  font-size: 50px;
+}
+
+.descripcion{
+  margin-top: 20px;
+  text-align: left;
+}
+
+.curso_contenedor{
+
+}
+.curso_informacion{
+  display: inline-block;
+}
+
+.cursoTutor{
+  color: rgb(40, 175, 42);
+  font-size: 25px;
+}
+
+.cursoTutor:hover{
+  color: rgb(2, 119, 4);
+  text-decoration: none;
+}
+
+.boton_inscribirse a:hover{
+  text-decoration: none;
+  background-color: rgb(60, 204, 37);
+}
+
+.temas{
+  text-align: left;
+  margin-top: 50px;
+}
+
+#lista_temas{
+  margin-bottom: 30px;
+}
+
+.test_titulo{
+  font-size: 90px;
+  color: rgb(29, 129, 9);
+  /*text-shadow: 1px 1px rgba(0, 0, 0, 0.96);*/
+}
+
+.ultimaCalificacion{
+  font-size: 20px;
+  color: rgb(55, 181, 79);
+  margin: 30px auto 40px auto;
+  border-bottom: solid 1px rgba(37, 36, 36, 0.2);
+  padding-bottom: 20px;
+  width: 80%;
+}
+
+
+.comentarios_titulo{
+  font-size: 35px;
+  width: 80%;
+  margin: 20px auto;
+  text-align: left;
+}
+
+.contenedor_comentarios{
+  height: 150px;
+  width: 80%;
+  margin: 0 auto;
+  overflow-y: auto;
+  background-color: rgba(241, 237, 237, 0.17);
+  border-radius: 5px 0 0 0 ;
+}
+
+.comentario_contenedor{
+  width: 90%;
+  margin: 10px auto 0px auto;
+  text-align: left;
+  border-bottom: solid 1px rgba(163, 162, 162, 0.21);
+}
+
+.comentario{
+  display: inline-block;
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+
+#h2_cuestionario{
+  margin-left:10%;
+  margin-top: 30px;
+}
+
+#btn_editar{
+  padding-left:40px;
+  padding-right:40px;
+}
+
+#hr_main{
+  display: block;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: solid;
+  border-width: 5px;
+  border-color: rgb(56, 168, 48);
+}
+
+#hr_pregunta{
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #0f15d6a6;
+}
+
+.correcta{
+  text-align: center;
+  border-radius: 5px;
+  /*background-color: #41ad00;*/
+  margin-bottom: 10px;
+  color:green;
+}
+
+.incorrecta{
+  text-align: center;
+  border-radius: 5px;
+  /*background-color: #de2323b5;*/
+  margin-bottom: 10px;
+  color:red;
+}
+
+#div_pregunta{
+  display:flex;
+  justify-content: space-between;
+}
+
+#btn_pregunta{
+  padding: 1px 4px 1px 4px;
+  font-size:15px;
+}
+
+p{
+  margin:0;
+}
+
+video{
+  width:70%;
+}
+
+.contenedor{
+  text-align: center;
+}
+.contenedor_agregar a{
+  color:gray;
+  font-size: 20px;
+}
+
+.contenedor_agregar a:hover{
+  color: rgb(32, 150, 34);
+  text-decoration: none;
+}

@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{%load staticfiles%}
+{% block title %} Register {% endblock %}
+{% block style%}
+  <link rel="stylesheet" href="{% static 'css/detalle_curso.css' %}">
+    <script type="text/javascript" src="{% static 'jquery-2.1.4.js'%}">
+
+    </script>
+
+    <style>
+      .base_contenedor{
+        width: 85%;
+        margin: 0 auto;
+      }
+
+      h2{
+        margin-bottom: 30px;
+      }
+      label{
+        display: inline-block;
+      }
+
+      input{
+        display: block;
+        width: 100%;
+      }
+
+      .boton_contenedor{
+        text-align: center;
+      }
+
+      .boton{
+        border: 0;
+        background-color: rgb(22, 175, 51);
+        color: rgb(231, 231, 235);
+        padding: 5px 0;
+        width: 200px;
+        border-radius: 5px;
+        margin: 20px 0;
+      }
+
+      .boton:hover{
+        background-color: rgb(60, 204, 37);
+      }
+
+      .inicia_sesion_contenedor{
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      .inicia_sesion_contenedor p{
+          margin: 0;
+          font-size: 18px;
+      }
+
+      a{
+          color: rgb(40, 175, 42);
+          display: inline-block;
+      }
+
+      a:hover{
+        color: rgb(2, 119, 4);
+        text-decoration: none;
+      }
+
+      #validacion_nombre, #validacion_apellido{
+        display: inline-block;
+        font-style: italic;
+        color: rgb(138, 43, 43);
+        margin-left: 50px;
+      }
+
+    </style>
+{%endblock%}
+
+{% block body %}
+
+<div align="center" style="padding:20px;">
+  <div style="padding: 30px; width:60%;;"  class="contenedor2" align="left">
+
+    {% if  user.is_authenticated %}
+    <h2>Actualmente ya estas logeado</h2>
+    {%else%}
+    <div class="base_contenedor">
+      <h2>Register</h2>
+      <hr />
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <div class="boton_contenedor">
+              <button type="submit" class="boton">Register</button>
+          </div>
+
+        </form>
+        <div class="inicia_sesion_contenedor">
+          <a href="/login">
+            <p>Ya tienes cuenta?</p>
+            <p> Inicia Sesion</p>
+          </a>
+        </div>
+
+        {%endif%}
+    </div>
+
+  </div>
+</div>
+
+<script>
+  $('span, ul').remove();
+
+  $('#id_nombre').on('keyup', function() {
+       if (/^[a-zA-Z ]+$/.test($(this).val()) || document.getElementById('id_nombre').value == '')
+         document.getElementById('validacion_nombre').innerHTML = '';
+       else
+         document.getElementById('validacion_nombre').innerHTML = 'No ingresar datos numericos';
+   })
+
+   $('#id_apellido').on('keyup', function() {
+        if (/^[a-zA-Z ]+$/.test($(this).val()) || document.getElementById('id_apellido').value == '')
+          document.getElementById('validacion_apellido').innerHTML = '';
+        else
+          document.getElementById('validacion_apellido').innerHTML = 'No ingresar datos numericos';
+    })
+
+    $(document).ready(function(){
+      $( '<p id="validacion_nombre"></p>' ).insertBefore( "#id_nombre" );
+      $( '<p id="validacion_apellido"></p>' ).insertBefore( "#id_apellido" );
+    });
+
+    //---------------------
+
+    $("form").submit(function(event) {
+      /* stop form from submitting normally */
+      event.preventDefault();
+
+      /* get some values from elements on the page: */
+      var campoNombre = document.getElementById('validacion_nombre').innerHTML;
+      var campoApellido =  document.getElementById('validacion_apellido').innerHTML;
+
+      if (campoNombre !='' || campoApellido != '') {
+        // the form is not valid
+        // show some nice errors, I'm just changing the button text here
+        alert('Algunos campos son incorrectos');
+        return false;
+      }else {
+         $(this).unbind('submit').submit()
+      }
+
+      // send your data here, the form should be valid
+
+    });
+</script>
+
+{% endblock %}

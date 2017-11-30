@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{%load staticfiles%}
+{% block title %} Crear Curso {% endblock %}
+{%block style%}
+<link rel="stylesheet" href="{% static 'css/detalle_curso.css' %}">
+<script type="text/javascript" src="{% static 'jquery-2.1.4.js'%}"></script>
+{%endblock%}
+{% block body %}
+
+<div align="center" style="padding:20px;">
+  <div style="width:900px;"  class="contenedor2" align="left">
+    <h2>Agrega Curso</h2>
+    <hr>
+    <form method="post"  enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <p class="fieldWrapper">
+          {{ form.nombre.errors }}
+          {{ form.nombre.label_tag }}
+          {{ form.nombre }}
+      </p>
+      <p class="fieldWrapper">
+          {{ form.dificultad.errors }}
+          {{ form.dificultad.label_tag }}
+          {{ form.dificultad }}
+      </p>
+      <p class="fieldWrapper">
+        {{ form.descripcion.errors }}
+          <label for="id_descripcion">Descripcion:</label><br />
+          <textarea type="text" name="descripcion" id="id_descripcion" maxlength="5000"></textarea>
+      </p>
+      <p class="fieldWrapper">
+          {{ form.foto.errors }}
+          {{ form.foto.label_tag }}
+          {{ form.foto }}
+      </p>
+      <p class="fieldWrapper">
+        {{ form.objetivos.errors }}
+          <label for="id_objetivos">Objetivos:</label><br/>
+          <textarea type="text" name="objetivos" id="id_objetivos" maxlength="5000"></textarea>
+      </p>
+      <p class="fieldWrapper">
+        {{ form.requisitos.errors }}
+          <label for="id_requisitos">Requisitos:</label><br/>
+          <textarea type="text" name="requisitos" id="id_requisitos" maxlength="5000"></textarea>
+      </p>
+      <!-- {{form.as_p}} -->
+      <input class="btn btn-success" id="btn_Crear" type="submit" name="cmdGuardar" value="Crear" > </input>
+    </form>
+
+  </div>
+</div>
+
+<script>
+
+</script>
+
+{% endblock %}

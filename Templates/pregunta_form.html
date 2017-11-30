@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{%load staticfiles%}
+{% block title %} Agregar Pregunta {% endblock %}
+{%block style%}
+<link rel="stylesheet" href="{% static 'css/detalle_curso.css' %}">
+<script type="text/javascript" src="{% static 'jquery-2.1.4.js'%}"></script>
+<style>
+  input{
+    width:100%;
+  }
+  label{
+    color:#5a5a5a;
+    font-weight: 600;
+  }
+</style>
+{%endblock%}
+{% block body %}
+
+<div align="center" style="padding:20px;">
+  <div style="width:900px;"  class="contenedor2" align="left">
+    <h2>Agregar Pregunta</h2>
+    <hr />
+    <form method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <!-- {{form}} -->
+      <p class="fieldWrapper1">
+          {{ form.pregunta.errors }}
+          {{ form.pregunta.label_tag }}
+          {{ form.pregunta }}
+      </p>
+      <p class="fieldWrapper2">
+          {{ form.resCorrecta.errors }}
+          {{ form.resCorrecta.label_tag }}
+          {{ form.resCorrecta }}
+      </p>
+      <p class="fieldWrapper3">
+          {{ form.resIncorrecta1.errors }}
+          {{ form.resIncorrecta1.label_tag }}
+          {{ form.resIncorrecta1 }}
+      </p>
+      <p class="fieldWrapper3">
+          {{ form.resIncorrecta2.errors }}
+          {{ form.resIncorrecta2.label_tag }}
+          {{ form.resIncorrecta2 }}
+      </p>
+      <p class="fieldWrapper3">
+          {{ form.resIncorrecta3.errors }}
+          {{ form.resIncorrecta3.label_tag }}
+          {{ form.resIncorrecta3 }}
+      </p>
+      <input class="btn btn-success" id="btn_Crear" type="submit" name="cmdGuardar" value="Crear"> </input>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

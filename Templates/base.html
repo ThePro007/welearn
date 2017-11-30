@@ -1,0 +1,83 @@
+{% load staticfiles %}
+  {% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> {% block title %} {% endblock %}</title>
+  <link rel="icon" href="{% static 'images/.png' %}" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="{% static 'bootstrap_4/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/estilo_base.css' %}">
+  {%block style%}{%endblock%}
+</head>
+
+<body style="">
+
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background:rgb(52, 172, 50); height:50px;">
+    <a class="navbar-brand" href="/" style="padding-left:20px;"><img src="{% static 'images/logoWeLearn.png' %}" alt="imagen" height="30px"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+          {% if not user.is_authenticated%}
+            <li class="nav-item active">
+              <a class="nav-link" href="/">The best way to learn English</a>
+            </li>
+          {%endif%}
+          {% if  user.is_authenticated %} 
+
+            {% if isTeacher %}
+            {% else %}
+            {% endif %}
+
+            <li class="nav-item active">
+              <a class="nav-link" href="/listar_curso">Cursos</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/listar_maestro">Maestros</a>
+            </li>
+            {% if isTeacher %}
+              <li class="nav-item active">
+                <a class="nav-link" href="/crea_curso" style="margin-left:200px;">Agregar Curso</a>
+              </li>
+              <li class="nav-item active">
+                <img src="{% static 'images/registerIcon.png' %}" alt="Imagen" height="45px;" style="vertical-align:-webkit-baseline-middle;;">
+              </li>
+            {% else %}
+            {% endif %}
+
+          {% endif %}
+      </ul>
+      <form class="form-inline my-2 my-lg-0" action="/login">
+        {% if not user.is_authenticated %}
+          <button class="btn btn-light my-2 my-sm-0" type="submit" style="width:200px;">Login</button>
+        {% else %}
+          {%if isTeacher%}
+            <a class="navbar-brand" href="/perfil_maestro" style="padding-left:20px;">Perfil {{ user.username }}</a>
+          {%else%}
+            <a class="navbar-brand" href="/perfil_alumno" style="padding-left:20px;">Perfil {{ user.username }}</a>
+          {%endif%}
+          <img src="{{ current.foto.url }}" alt="Imagen" height="48px;" id="img_profile">
+          <a class="btn btn-light my-2 my-sm-0" href="/cerrar" style="margin-left:20px;">Logout</a>
+        {% endif %}
+      </form>
+    </div>
+  </nav>
+
+  {% block body %}
+  {% endblock %}
+
+
+  <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="{% static 'bootstrap_4/js/jquery.js' %}" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+    <script src="{% static 'bootstrap_4/js/ajax.js' %}" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="{% static 'bootstrap_4/js/bootstrap.min.js' %}" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+  </body>
+</html>
